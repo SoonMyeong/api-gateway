@@ -1,0 +1,12 @@
+server:
+  port: 8761
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  server:
+    response-cache-update-interval-ms: 1000 # 1?
+    enable-self-preservation: false # ???? false(??)
+  client:
+    register-with-eureka: false
+    fetch-registry: false

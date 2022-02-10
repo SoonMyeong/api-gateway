@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: api-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+
+zuul:
+  routes:
+    greeting-api:
+      path: /api/greeting/**
+      serviceId: greeting-api
+      stripPrefix: false
+
+greeting-api:
+  ribbon:
+    eureka:
+      enable: true
+      NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
