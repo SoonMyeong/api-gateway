@@ -14,11 +14,16 @@ import org.springframework.context.annotation.Configuration;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
-// https://github.com/spring-cloud/spring-cloud-netflix/issues/4008
-// The problem is the Spring version conflict between org.springframework.cloud:spring-cloud-starter-netflix-zuul:2.2.x and Spring Boot 2.5.x
-// https://stackoverflow.com/questions/68100671/nosuchmethoderror-org-springframework-boot-web-servlet-error-errorcontroller-ge
+/**
+ *
+ * <a href = "https://github.com/spring-cloud/spring-cloud-netflix/issues/4008#issuecomment-901155195">
+ *     The problem is the Spring version conflict between org.springframework.cloud:spring-cloud-starter-netflix-zuul:2.2.x and Spring Boot 2.5.x</a>
+ * @see <a href = "https://stackoverflow.com/questions/68100671/nosuchmethoderror-org-springframework-boot-web-servlet-error-errorcontroller-ge">
+ *     StackOverFlow Answer</a>
+ */
 @Configuration
-public class ZuulConfiguration {
+public class ZuulConfiguration
+{
 
     /**
      * The path returned by ErrorController.getErrorPath() with Spring Boot < 2.5
