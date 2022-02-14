@@ -1,5 +1,6 @@
 package com.soon.zuul.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soon.zuul.security.filter.LoginProcessingFilter;
 import com.soon.zuul.security.handler.LoginAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 {
 
     private final LoginAuthenticationSuccessHandler successHandler;
+    private final ObjectMapper objectMapper;
 
     @Autowired
     public WebSecurityConfig(
-        LoginAuthenticationSuccessHandler successHandler
+        LoginAuthenticationSuccessHandler successHandler,
+        ObjectMapper objectMapper
     )
     {
         this.successHandler = successHandler;
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -36,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             .mvcMatchers("/api/**").permitAll()
             .anyRequest().authenticated()
             .and()
-                .addFilterBefore(loginProcessiongFilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(loginProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
 
         http.sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // disable session
@@ -45,9 +49,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     }
 
     @Bean
-    public LoginProcessingFilter loginProcessiongFilter() throws Exception
+    public LoginProcessingFilter loginProcessingFilter() throws Exception
     {
-        LoginProcessingFilter loginProcessingFilter = new LoginProcessingFilter();
+        LoginProcessingFilter loginProcessingFilter = new LoginProcessingFilter(objectMapper);
         loginProcessingFilter.setAuthenticationManager(authenticationManagerBean());
         loginProcessingFilter.setAuthenticationSuccessHandler(successHandler);
 

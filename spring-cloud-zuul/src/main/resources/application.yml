@@ -6,9 +6,10 @@ spring:
       name: admin
       password: 1234
       roles: USER
-    jwt:
-      key: test
-      issuer: test
+
+jwt:
+  key: test
+  issuer: test
 
 eureka:
   client:

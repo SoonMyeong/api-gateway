@@ -40,9 +40,6 @@ public class LoginAuthenticationSuccessHandler extends SimpleUrlAuthenticationSu
         User user = (User) authentication.getPrincipal();
         String token = jwtBuildUtil.createJwt(user);
 
-        PrintWriter out = response.getWriter();
-        out.print(token);
-        out.flush();
-        out.close();
+        objectMapper.writeValue(response.getWriter(),token);
     }
 }
