@@ -1,6 +1,6 @@
 package com.soon.zuul.security;
 
-import com.soon.zuul.security.filter.LoginProcessiongFilter;
+import com.soon.zuul.security.filter.LoginProcessingFilter;
 import com.soon.zuul.security.handler.LoginAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -45,13 +45,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     }
 
     @Bean
-    public LoginProcessiongFilter loginProcessiongFilter() throws Exception
+    public LoginProcessingFilter loginProcessiongFilter() throws Exception
     {
-        LoginProcessiongFilter loginProcessiongFilter = new LoginProcessiongFilter();
-        loginProcessiongFilter.setAuthenticationManager(authenticationManagerBean());
-        loginProcessiongFilter.setAuthenticationSuccessHandler(successHandler);
+        LoginProcessingFilter loginProcessingFilter = new LoginProcessingFilter();
+        loginProcessingFilter.setAuthenticationManager(authenticationManagerBean());
+        loginProcessingFilter.setAuthenticationSuccessHandler(successHandler);
 
-        return loginProcessiongFilter;
+        return loginProcessingFilter;
     }
 
     @Override
