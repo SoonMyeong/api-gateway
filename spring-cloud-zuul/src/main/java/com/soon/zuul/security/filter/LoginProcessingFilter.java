@@ -28,9 +28,12 @@ public class LoginProcessingFilter extends UsernamePasswordAuthenticationFilter
             , HttpServletResponse response) throws AuthenticationException
     {
         Member member = null;
-        try {
+        try
+        {
             member = objectMapper.readValue(request.getReader(), Member.class);
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(member.getId(),member.getPw());
