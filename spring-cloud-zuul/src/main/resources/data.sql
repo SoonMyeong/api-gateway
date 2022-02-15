@@ -1,0 +1,2 @@
+INSERT INTO MEMBER(ID,PW)
+VALUES ('admin','$2a$10$D5kL1z8nhh49rIWYzu8t0Olox33UiWkFhpmkXMZverQ3klphI7a2i');
