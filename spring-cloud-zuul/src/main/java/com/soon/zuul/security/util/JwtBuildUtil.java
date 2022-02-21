@@ -1,6 +1,8 @@
 package com.soon.zuul.security.util;
 
 import com.soon.zuul.security.config.JwtProperty;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.security.Key;
@@ -32,6 +34,16 @@ public class JwtBuildUtil
             .setIssuer(jwtProperty.getIssuer())
             .signWith(key)
             .compact();
+    }
+
+    public Jws<Claims> extractClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(this.key)
+                .build().parseClaimsJws(token);
+    }
+
+    public boolean validateToken(String token) {
+        //TODO..
     }
 
 }
