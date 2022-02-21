@@ -26,7 +26,8 @@ public class JwtBuildUtil
     public String createJwt(User user)
     {
         return Jwts.builder()
-            .setIssuedAt(new Date(System.currentTimeMillis()))
+            .setIssuedAt(new Date())
+            .setExpiration(new Date(System.currentTimeMillis() + 60*30*1000L))
             .claim("user",user)
             .setIssuer(jwtProperty.getIssuer())
             .signWith(key)

@@ -1,6 +1,7 @@
 package com.soon.zuul.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.soon.zuul.security.auth.MemberDetailsService;
 import com.soon.zuul.security.filter.LoginProcessingFilter;
 import com.soon.zuul.security.handler.LoginAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +25,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 {
 
     private final LoginAuthenticationSuccessHandler successHandler;
+    private final MemberDetailsService memberDetailsService;
     private final ObjectMapper objectMapper;
 
     @Autowired
     public WebSecurityConfig(
-        LoginAuthenticationSuccessHandler successHandler,
-        ObjectMapper objectMapper
+        LoginAuthenticationSuccessHandler successHandler
+        , MemberDetailsService memberDetailsService
+        , ObjectMapper objectMapper
     )
     {
         this.successHandler = successHandler;
+        this.memberDetailsService = memberDetailsService;
         this.objectMapper = objectMapper;
     }
 
@@ -79,7 +83,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-
+        daoAuthenticationProvider.setUserDetailsService(memberDetailsService);
         return daoAuthenticationProvider;
     }
 
