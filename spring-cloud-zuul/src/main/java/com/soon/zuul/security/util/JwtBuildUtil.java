@@ -29,6 +29,7 @@ public class JwtBuildUtil
             .setIssuedAt(new Date())
             .setExpiration(new Date(System.currentTimeMillis() + 60*30*1000L))
             .claim("user",user)
+            .setSubject(user.getUsername())
             .setIssuer(jwtProperty.getIssuer())
             .signWith(key)
             .compact();

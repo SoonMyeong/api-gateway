@@ -1,6 +1,5 @@
 package com.soon.zuul.security.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soon.zuul.security.config.JwtProperty;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -52,6 +51,8 @@ class JwtBuildUtilTest {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key).build()
                 .parseClaimsJws(token).getBody();
+
+        System.out.println(claims.getSubject());
 
     }
 }
