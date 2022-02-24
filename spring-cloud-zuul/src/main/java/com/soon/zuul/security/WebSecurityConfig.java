@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soon.zuul.security.auth.MemberDetailsService;
 import com.soon.zuul.security.filter.JwtFilter;
 import com.soon.zuul.security.filter.LoginProcessingFilter;
+import com.soon.zuul.security.handler.LoginAuthenticationEntryPoint;
 import com.soon.zuul.security.handler.LoginAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 
     private final LoginAuthenticationSuccessHandler successHandler;
     private final MemberDetailsService memberDetailsService;
+    private final LoginAuthenticationEntryPoint loginAuthenticationEntryPoint;
     private final ObjectMapper objectMapper;
     private final JwtFilter jwtFilter;
 
@@ -34,12 +36,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     public WebSecurityConfig(
         LoginAuthenticationSuccessHandler successHandler
         , MemberDetailsService memberDetailsService
+        , LoginAuthenticationEntryPoint loginAuthenticationEntryPoint
         , ObjectMapper objectMapper
         , JwtFilter jwtFilter
     )
     {
         this.successHandler = successHandler;
         this.memberDetailsService = memberDetailsService;
+        this.loginAuthenticationEntryPoint = loginAuthenticationEntryPoint;
         this.objectMapper = objectMapper;
         this.jwtFilter = jwtFilter;
     }
@@ -59,7 +63,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             .anyRequest().authenticated()
             .and()
             .addFilterBefore(loginProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+            .exceptionHandling()
+            .authenticationEntryPoint(loginAuthenticationEntryPoint);
 
 
         http.sessionManagement()
