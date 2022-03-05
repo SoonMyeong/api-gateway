@@ -35,6 +35,7 @@ zuul:
       path: /api/greeting/**
       serviceId: greeting-api
       stripPrefix: false
+      sensitiveHeaders:
 
 greeting-api:
   ribbon:
