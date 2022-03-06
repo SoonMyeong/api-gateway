@@ -36,6 +36,25 @@ zuul:
       serviceId: greeting-api
       stripPrefix: false
       sensitiveHeaders:
+  ribbon-isolation-strategy: thread
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+      circuitBreaker:
+        enabled: true
+        requestVolumeThreshold: 3
+        sleepWindowInMilliseconds: 10000
+        errorThresholdPercentage: 10
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 10000
+
+
 
 greeting-api:
   ribbon:

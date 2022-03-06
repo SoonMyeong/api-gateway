@@ -11,18 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 public class GreetingController {
 
     @GetMapping("/api/greeting")
-    public ResponseEntity<String> greeting(HttpServletRequest request) {
+    public ResponseEntity<String> greeting(HttpServletRequest request) throws InterruptedException {
 
-        String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-        String token = null;
-//        String username = null;
+//        String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+//        String token = null;
 //
-        if(header !=null && header.startsWith("Bearer ")) {
-            token = header.substring(7);
-        }
-//
-//        username = jwtBuildUtil.parseClaims(token).getBody().getSubject();
+//        if(header !=null && header.startsWith("Bearer ")) {
+//            token = header.substring(7);
+//        }
 
-        return ResponseEntity.ok("Hello");
+//        return ResponseEntity.ok("Hello");
+
+        Thread.sleep(3000);
+
+        return ResponseEntity.badRequest().body("error");
     }
 }
