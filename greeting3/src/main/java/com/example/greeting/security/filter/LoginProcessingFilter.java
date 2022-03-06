@@ -1,25 +1,25 @@
-package com.soon.zuul.security.filter;
+package com.example.greeting.security.filter;
 
+import com.example.greeting.security.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.soon.zuul.security.Member;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class LoginProcessingFilter extends UsernamePasswordAuthenticationFilter
+public class LoginProcessingFilter extends AbstractAuthenticationProcessingFilter
 {
 
     private final ObjectMapper objectMapper;
 
     public LoginProcessingFilter(ObjectMapper objectMapper)
     {
-        super();
+        super(new AntPathRequestMatcher("/security/login"));
         this.objectMapper = objectMapper;
     }
 
@@ -43,8 +43,6 @@ public class LoginProcessingFilter extends UsernamePasswordAuthenticationFilter
         }
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(result.getId(), result.getPw());
-        setDetails(request, authenticationToken);
-
         return getAuthenticationManager().authenticate(authenticationToken);
     }
 }

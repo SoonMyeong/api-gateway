@@ -1,0 +1,30 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: greeting-security
+  security:
+    jwt:
+      key: SecretKey-jwt-key-github.com-SoonMyeong
+      issuer: test
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    url: jdbc:h2:~/test1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  sql:
+    init:
+      mode: always
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true

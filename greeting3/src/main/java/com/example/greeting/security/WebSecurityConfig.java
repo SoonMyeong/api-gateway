@@ -1,11 +1,11 @@
-package com.soon.zuul.security;
+package com.example.greeting.security;
 
+import com.example.greeting.security.auth.MemberDetailsService;
+import com.example.greeting.security.filter.JwtFilter;
+import com.example.greeting.security.filter.LoginProcessingFilter;
+import com.example.greeting.security.handler.LoginAuthenticationEntryPoint;
+import com.example.greeting.security.handler.LoginAuthenticationSuccessHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.soon.zuul.security.auth.MemberDetailsService;
-import com.soon.zuul.security.filter.JwtFilter;
-import com.soon.zuul.security.filter.LoginProcessingFilter;
-import com.soon.zuul.security.handler.LoginAuthenticationEntryPoint;
-import com.soon.zuul.security.handler.LoginAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -59,8 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     {
         http.authorizeHttpRequests()
             .antMatchers("/h2-console/**").permitAll()
-            .antMatchers("/login").permitAll()
-            .antMatchers("/security/**").permitAll()
+            .antMatchers("/security/login").permitAll()
             .anyRequest().authenticated()
             .and()
             .addFilterBefore(loginProcessingFilter(), UsernamePasswordAuthenticationFilter.class)

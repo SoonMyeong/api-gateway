@@ -36,6 +36,11 @@ zuul:
       serviceId: greeting-api
       stripPrefix: false
       sensitiveHeaders:
+    greeting-security:
+      path: /security/**
+      serviceId: greeting-security
+      stripPrefix: false
+      sensitiveHeaders:
   ribbon-isolation-strategy: thread
 
 hystrix:
